@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import { CssBaseline, ThemeProvider} from "@mui/material"
+import { ColorModeContext, useMode } from "./theme";
+
+import Sidebar from "./scenes/global/Sidebar";
 
 function App() {
+  const [theme, colorMode] = useMode();
+  const [isSidebar, setIsSidebar] = useState(true);
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline>
+        </CssBaseline>
+          <div className="app">
+            <Sidebar isSidebar={isSidebar}/>
+          </div>
+      </ThemeProvider>
+    </ColorModeContext.Provider>
+    
   );
 }
 
